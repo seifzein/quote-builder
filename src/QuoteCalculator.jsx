@@ -96,12 +96,12 @@ export default function QuoteCalculator() {
               </div>
               <div className="flex flex-col justify-center items-start md:items-center text-left md:text-center space-y-10 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
                 <div>
-                  <p className="text-lg font-semibold text-gray-700">Total Weighted Score</p>
-                  <p className="text-4xl font-bold text-[#1a237e] mt-2">{Math.round(totalScore * 10) / 10}</p>
-                </div>
-                <div>
                   <p className="text-lg font-semibold text-gray-700">Estimated Quote</p>
                   <p className="text-5xl font-extrabold text-[#2e7d32] mt-2">${fee.toLocaleString()}</p>
+                </div>
+                <div>
+                  <p className="text-lg font-semibold text-gray-700">Total Weighted Score</p>
+                  <p className="text-4xl font-bold text-[#1a237e] mt-2">{Math.round(totalScore * 10) / 10}</p>
                 </div>
               </div>
             </div>
@@ -114,4 +114,3 @@ export default function QuoteCalculator() {
     </div>
   )
 }
-
