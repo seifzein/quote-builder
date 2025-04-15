@@ -1,11 +1,11 @@
 import { useState } from "react"
 
 function Card({ children }) {
-  return <div className="bg-white rounded-xl p-6 shadow-md">{children}</div>
+  return <div className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100">{children}</div>
 }
 
 function CardContent({ children, className = "" }) {
-  return <div className={`space-y-4 ${className}`}>{children}</div>
+  return <div className={`space-y-6 ${className}`}>{children}</div>
 }
 
 function Slider({ min, max, step, value, onValueChange }) {
@@ -16,14 +16,14 @@ function Slider({ min, max, step, value, onValueChange }) {
       max={max}
       step={step}
       value={value}
-      className="w-full mt-2"
+      className="w-full mt-2 accent-[#1a237e]"
       onChange={(e) => onValueChange([Number(e.target.value)])}
     />
   )
 }
 
 function Label({ children, className = "" }) {
-  return <label className={`block text-sm mb-1 ${className}`}>{children}</label>
+  return <label className={`block text-sm font-medium mb-1 text-gray-800 ${className}`}>{children}</label>
 }
 
 const weights = {
@@ -168,41 +168,43 @@ export default function QuoteCalculator() {
   const fee = Math.round(minFee + (totalScore - 20) * 106.25)
 
   return (
-    <div className="max-w-3xl mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold text-center mb-6 text-[#1a237e]">
-        Moores Rowland Egypt — Financial Model Quote Builder
-      </h1>
-      <Card>
-        <CardContent className="space-y-6 py-6">
-          {questions.map((q) => (
-            <div key={q.key}>
-              <Label className="font-semibold text-[#0d47a1]">
-                {q.label}: {scores[q.key]}
-              </Label>
-              <Slider
-                min={1}
-                max={5}
-                step={1}
-                value={scores[q.key]}
-                onValueChange={([val]) =>
-                  setScores((prev) => ({ ...prev, [q.key]: val }))
-                }
-              />
-              <div className="text-xs text-gray-600 mt-1">
-                {q.levels[scores[q.key] - 1]}
+    <div className="min-h-screen bg-[#f5f7fa] py-12 px-4">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-4xl font-bold text-center mb-8 text-[#1a237e]">
+          Moores Rowland Egypt — Quote Builder
+        </h1>
+        <Card>
+          <CardContent>
+            {questions.map((q) => (
+              <div key={q.key}>
+                <Label className="text-[#0d47a1]">
+                  {q.label}: <span className="text-[#1a237e] font-semibold">{scores[q.key]}</span>
+                </Label>
+                <Slider
+                  min={1}
+                  max={5}
+                  step={1}
+                  value={scores[q.key]}
+                  onValueChange={([val]) =>
+                    setScores((prev) => ({ ...prev, [q.key]: val }))
+                  }
+                />
+                <div className="text-sm text-gray-600 mt-1">
+                  {q.levels[scores[q.key] - 1]}
+                </div>
               </div>
+            ))}
+            <div className="pt-6 border-t border-gray-200">
+              <p className="text-lg font-medium text-gray-700">
+                Total Weighted Score: {Math.round(totalScore * 10) / 10}
+              </p>
+              <p className="text-3xl font-bold text-[#2e7d32] mt-2">
+                Proposed Fee: ${fee.toLocaleString()}
+              </p>
             </div>
-          ))}
-          <div className="pt-6 border-t">
-            <p className="text-xl font-medium">
-              Total Weighted Score: {Math.round(totalScore * 10) / 10}
-            </p>
-            <p className="text-2xl font-bold text-[#2e7d32]">
-              Proposed Fee: ${fee.toLocaleString()}
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }
