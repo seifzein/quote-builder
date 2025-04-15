@@ -1,11 +1,11 @@
 import { useState } from "react"
 
 function Card({ children }) {
-  return <div className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100">{children}</div>
+  return <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 transition hover:shadow-2xl">{children}</div>
 }
 
 function CardContent({ children, className = "" }) {
-  return <div className={`space-y-6 ${className}`}>{children}</div>
+  return <div className={`space-y-8 ${className}`}>{children}</div>
 }
 
 function Slider({ min, max, step, value, onValueChange }) {
@@ -16,14 +16,14 @@ function Slider({ min, max, step, value, onValueChange }) {
       max={max}
       step={step}
       value={value}
-      className="w-full mt-2 accent-[#1a237e]"
+      className="w-full mt-2 accent-[#1a237e] hover:opacity-90"
       onChange={(e) => onValueChange([Number(e.target.value)])}
     />
   )
 }
 
 function Label({ children, className = "" }) {
-  return <label className={`block text-sm font-medium mb-1 text-gray-800 ${className}`}>{children}</label>
+  return <label className={`block text-base font-semibold mb-1 text-[#0d47a1] ${className}`}>{children}</label>
 }
 
 const weights = {
@@ -168,17 +168,17 @@ export default function QuoteCalculator() {
   const fee = Math.round(minFee + (totalScore - 20) * 106.25)
 
   return (
-    <div className="min-h-screen bg-[#f5f7fa] py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#e8ebf0] to-[#f5f7fa] py-16 px-6">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-8 text-[#1a237e]">
-          Moores Rowland Egypt — Quote Builder
+        <h1 className="text-5xl font-bold text-center mb-10 text-[#1a237e] tracking-tight">
+          Financial Model Pricing Tool
         </h1>
         <Card>
           <CardContent>
             {questions.map((q) => (
-              <div key={q.key}>
-                <Label className="text-[#0d47a1]">
-                  {q.label}: <span className="text-[#1a237e] font-semibold">{scores[q.key]}</span>
+              <div key={q.key} className="pb-6 border-b border-gray-100">
+                <Label>
+                  {q.label}: <span className="text-[#1a237e] font-bold">{scores[q.key]}</span>
                 </Label>
                 <Slider
                   min={1}
@@ -189,17 +189,23 @@ export default function QuoteCalculator() {
                     setScores((prev) => ({ ...prev, [q.key]: val }))
                   }
                 />
-                <div className="text-sm text-gray-600 mt-1">
+                <div className="text-sm text-gray-600 mt-1 italic">
                   {q.levels[scores[q.key] - 1]}
                 </div>
               </div>
             ))}
-            <div className="pt-6 border-t border-gray-200">
+            <div className="pt-8 text-center">
               <p className="text-lg font-medium text-gray-700">
-                Total Weighted Score: {Math.round(totalScore * 10) / 10}
+                Total Weighted Score:
               </p>
-              <p className="text-3xl font-bold text-[#2e7d32] mt-2">
-                Proposed Fee: ${fee.toLocaleString()}
+              <p className="text-2xl font-bold text-[#1a237e]">
+                {Math.round(totalScore * 10) / 10}
+              </p>
+              <p className="mt-4 text-lg font-medium text-gray-700">
+                Estimated Quote:
+              </p>
+              <p className="text-4xl font-extrabold text-[#2e7d32]">
+                ${fee.toLocaleString()}
               </p>
             </div>
           </CardContent>
