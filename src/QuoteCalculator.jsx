@@ -1,11 +1,12 @@
 import { useState } from "react"
+import logo from "./logo.png" // Optional: replace with your actual logo path
 
 function Card({ children }) {
-  return <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 transition hover:shadow-2xl">{children}</div>
+  return <div className="bg-white rounded-2xl p-10 shadow-2xl border border-gray-100 transition hover:shadow-blue-200">{children}</div>
 }
 
 function CardContent({ children, className = "" }) {
-  return <div className={`space-y-8 ${className}`}>{children}</div>
+  return <div className={`space-y-10 ${className}`}>{children}</div>
 }
 
 function Slider({ min, max, step, value, onValueChange }) {
@@ -16,7 +17,7 @@ function Slider({ min, max, step, value, onValueChange }) {
       max={max}
       step={step}
       value={value}
-      className="w-full mt-2 accent-[#1a237e] hover:opacity-90"
+      className="w-full mt-2 accent-[#1a237e] hover:opacity-90 transition"
       onChange={(e) => onValueChange([Number(e.target.value)])}
     />
   )
@@ -46,6 +47,7 @@ const questions = [
   {
     key: "sector",
     label: "Sector of Operation",
+    icon: "🏭",
     levels: [
       "1 - Highly comparable sector with rich data",
       "2 - Moderately comparable with some adjustments",
@@ -57,6 +59,7 @@ const questions = [
   {
     key: "size",
     label: "Firm Size (No. of Employees)",
+    icon: "👥",
     levels: [
       "1 - <50 employees, simple ops",
       "2 - 51–200 employees",
@@ -68,6 +71,7 @@ const questions = [
   {
     key: "purpose",
     label: "Purpose of Valuation",
+    icon: "📌",
     levels: [
       "1 - Internal decision-making",
       "2 - Tax or impairment reporting",
@@ -79,6 +83,7 @@ const questions = [
   {
     key: "methodology",
     label: "Valuation Methodology Used",
+    icon: "📊",
     levels: [
       "1 - Multiples only",
       "2 - Simple DCF",
@@ -90,6 +95,7 @@ const questions = [
   {
     key: "data",
     label: "Data Availability & Quality",
+    icon: "📁",
     levels: [
       "1 - Very poor, missing data",
       "2 - Sparse, high effort",
@@ -101,6 +107,7 @@ const questions = [
   {
     key: "cooperation",
     label: "Management Cooperation",
+    icon: "🤝",
     levels: [
       "1 - Unresponsive",
       "2 - Poor communication",
@@ -112,6 +119,7 @@ const questions = [
   {
     key: "structure",
     label: "Complexity of Financial Structure",
+    icon: "🏗️",
     levels: [
       "1 - No subsidiaries, clean",
       "2 - Simple subsidiaries",
@@ -123,6 +131,7 @@ const questions = [
   {
     key: "volatility",
     label: "Industry Volatility",
+    icon: "📉",
     levels: [
       "1 - Highly stable (e.g., utilities)",
       "2 - Predictable (e.g., staples)",
@@ -134,6 +143,7 @@ const questions = [
   {
     key: "plan",
     label: "Availability of a Business Plan",
+    icon: "📝",
     levels: [
       "1 - No plan, build from scratch",
       "2 - High-level targets only",
@@ -145,6 +155,7 @@ const questions = [
   {
     key: "sensitivity",
     label: "Level of Scenario Analysis",
+    icon: "📈",
     levels: [
       "1 - None",
       "2 - Basic 1-2 variables",
@@ -168,16 +179,21 @@ export default function QuoteCalculator() {
   const fee = Math.round(minFee + (totalScore - 20) * 106.25)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#e8ebf0] to-[#f5f7fa] py-16 px-6">
+    <div className="min-h-screen bg-gradient-to-br from-[#e8ebf0] to-[#f5f7fa] py-16 px-6 font-sans">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-5xl font-bold text-center mb-10 text-[#1a237e] tracking-tight">
-          Financial Model Pricing Tool
-        </h1>
+        <div className="text-center mb-10">
+          <img src="/logo.png" alt="Moores Rowland" className="w-32 mx-auto mb-4" />
+          <h1 className="text-5xl font-bold text-[#1a237e] tracking-tight">
+            Moores Rowland Pricing Tool
+          </h1>
+          <p className="text-sm text-gray-500 mt-2">Powered by Moores Rowland Egypt</p>
+        </div>
         <Card>
           <CardContent>
             {questions.map((q) => (
               <div key={q.key} className="pb-6 border-b border-gray-100">
                 <Label>
+                  <span className="mr-2 text-lg">{q.icon}</span>
                   {q.label}: <span className="text-[#1a237e] font-bold">{scores[q.key]}</span>
                 </Label>
                 <Slider
@@ -194,22 +210,17 @@ export default function QuoteCalculator() {
                 </div>
               </div>
             ))}
-            <div className="pt-8 text-center">
-              <p className="text-lg font-medium text-gray-700">
-                Total Weighted Score:
-              </p>
-              <p className="text-2xl font-bold text-[#1a237e]">
-                {Math.round(totalScore * 10) / 10}
-              </p>
-              <p className="mt-4 text-lg font-medium text-gray-700">
-                Estimated Quote:
-              </p>
-              <p className="text-4xl font-extrabold text-[#2e7d32]">
-                ${fee.toLocaleString()}
-              </p>
+            <div className="pt-10 text-center">
+              <p className="text-lg font-medium text-gray-700">Total Weighted Score:</p>
+              <p className="text-3xl font-bold text-[#1a237e]">{Math.round(totalScore * 10) / 10}</p>
+              <p className="mt-4 text-lg font-medium text-gray-700">Estimated Quote:</p>
+              <p className="text-5xl font-extrabold text-[#2e7d32]">${fee.toLocaleString()}</p>
             </div>
           </CardContent>
         </Card>
+        <footer className="mt-10 text-center text-sm text-gray-500">
+          © {new Date().getFullYear()} Moores Rowland Egypt · All Rights Reserved
+        </footer>
       </div>
     </div>
   )
