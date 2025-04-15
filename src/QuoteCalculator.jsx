@@ -1,5 +1,4 @@
 import { useState } from "react"
-import logo from "./logo.png"
 
 function Card({ children }) {
   return <div className="bg-white rounded-3xl p-10 shadow-xl border border-gray-200 transition hover:shadow-2xl">{children}</div>
@@ -62,14 +61,11 @@ export default function QuoteCalculator() {
   const fee = Math.round(minFee + (totalScore - 20) * 106.25)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#e3e8f0] to-[#f8fafc] py-16 px-6 font-sans">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-12">
-          <img src="/logo.png" alt="Moores Rowland" className="w-28 mx-auto mb-5" />
-          <h1 className="text-5xl font-bold text-[#1a237e] tracking-tight mb-2">
-            Moores Rowland Pricing Tool
-          </h1>
-          <p className="text-md text-gray-600">Independent. Professional. Global Reach.</p>
+    <div className="min-h-screen bg-gradient-to-br from-[#e3e8f0] to-[#f8fafc] py-16 pl-24 pr-6 font-sans">
+      <div className="max-w-5xl mx-auto ml-16">
+        <div className="flex items-center justify-start gap-4 mb-12">
+          <img src="/logo.png" alt="Moores Rowland" className="w-24 h-24 object-contain"/>
+          <h1 className="text-3xl font-semibold text-[#1a237e] tracking-tight">Pricing Tool</h1>
         </div>
         <Card>
           <CardContent>
