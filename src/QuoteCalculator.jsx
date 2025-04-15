@@ -62,9 +62,9 @@ export default function QuoteCalculator() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#e3e8f0] to-[#f8fafc] py-16 pl-24 pr-6 font-sans">
-      <div className="max-w-5xl mx-auto ml-16">
+      <div className="max-w-5xl mx-auto ml-24">
         <div className="flex items-center justify-start gap-4 mb-12">
-          <img src="/logo.png" alt="Moores Rowland" className="w-24 h-24 object-contain"/>
+          <img src="/logo.png" alt="Moores Rowland" className="w-3 h-3 object-contain"/>
           <h1 className="text-3xl font-semibold text-[#1a237e] tracking-tight">Pricing Tool</h1>
         </div>
         <Card>
