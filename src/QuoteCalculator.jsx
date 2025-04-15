@@ -1,12 +1,12 @@
 import { useState } from "react"
-import logo from "./logo.png" // Optional: replace with your actual logo path
+import logo from "./logo.png"
 
 function Card({ children }) {
-  return <div className="bg-white rounded-2xl p-10 shadow-2xl border border-gray-100 transition hover:shadow-blue-200">{children}</div>
+  return <div className="bg-white rounded-3xl p-10 shadow-xl border border-gray-200 transition hover:shadow-2xl">{children}</div>
 }
 
 function CardContent({ children, className = "" }) {
-  return <div className={`space-y-10 ${className}`}>{children}</div>
+  return <div className={`space-y-12 ${className}`}>{children}</div>
 }
 
 function Slider({ min, max, step, value, onValueChange }) {
@@ -17,14 +17,14 @@ function Slider({ min, max, step, value, onValueChange }) {
       max={5}
       step={1}
       value={value}
-      className="w-full mt-2 accent-[#1a237e] hover:opacity-90 transition"
+      className="w-full h-2 rounded-lg appearance-none bg-gray-300 accent-[#1a237e] hover:accent-[#0d47a1] transition"
       onChange={(e) => onValueChange([Number(e.target.value)])}
     />
   )
 }
 
 function Label({ children, className = "" }) {
-  return <label className={`block text-base font-semibold mb-1 text-[#0d47a1] ${className}`}>{children}</label>
+  return <label className={`block text-lg font-semibold mb-1 text-[#0d47a1] ${className}`}>{children}</label>
 }
 
 const weights = {
@@ -62,23 +62,23 @@ export default function QuoteCalculator() {
   const fee = Math.round(minFee + (totalScore - 20) * 106.25)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#e8ebf0] to-[#f5f7fa] py-16 px-6 font-sans">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-10">
-          <img src="/logo.png" alt="Moores Rowland" className="w-32 mx-auto mb-4" />
-          <h1 className="text-5xl font-bold text-[#1a237e] tracking-tight">
+    <div className="min-h-screen bg-gradient-to-br from-[#e3e8f0] to-[#f8fafc] py-16 px-6 font-sans">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-12">
+          <img src="/logo.png" alt="Moores Rowland" className="w-28 mx-auto mb-5" />
+          <h1 className="text-5xl font-bold text-[#1a237e] tracking-tight mb-2">
             Moores Rowland Pricing Tool
           </h1>
-          <p className="text-sm text-gray-500 mt-2">Powered by Moores Rowland Egypt</p>
+          <p className="text-md text-gray-600">Independent. Professional. Global Reach.</p>
         </div>
         <Card>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <div className="space-y-8">
                 {questions.map((q) => (
-                  <div key={q.key} className="pb-6 border-b border-gray-100">
+                  <div key={q.key} className="pb-6 border-b border-gray-200">
                     <Label>
-                      <span className="mr-2 text-lg">{q.icon}</span>
+                      <span className="mr-2 text-xl">{q.icon}</span>
                       {q.label}: <span className="text-[#1a237e] font-bold">{scores[q.key]}</span>
                     </Label>
                     <Slider
@@ -88,29 +88,30 @@ export default function QuoteCalculator() {
                       value={scores[q.key]}
                       onValueChange={([val]) => setScores((prev) => ({ ...prev, [q.key]: val }))}
                     />
-                    <div className="text-sm text-gray-600 mt-1 italic">
+                    <div className="text-sm text-gray-500 mt-2 italic">
                       {q.levels[scores[q.key] - 1]}
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="flex flex-col justify-center items-start md:items-center text-left md:text-center space-y-6">
+              <div className="flex flex-col justify-center items-start md:items-center text-left md:text-center space-y-10 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
                 <div>
-                  <p className="text-lg font-medium text-gray-700">Total Weighted Score:</p>
-                  <p className="text-3xl font-bold text-[#1a237e]">{Math.round(totalScore * 10) / 10}</p>
+                  <p className="text-lg font-semibold text-gray-700">Total Weighted Score</p>
+                  <p className="text-4xl font-bold text-[#1a237e] mt-2">{Math.round(totalScore * 10) / 10}</p>
                 </div>
                 <div>
-                  <p className="text-lg font-medium text-gray-700">Estimated Quote:</p>
-                  <p className="text-5xl font-extrabold text-[#2e7d32]">${fee.toLocaleString()}</p>
+                  <p className="text-lg font-semibold text-gray-700">Estimated Quote</p>
+                  <p className="text-5xl font-extrabold text-[#2e7d32] mt-2">${fee.toLocaleString()}</p>
                 </div>
               </div>
             </div>
           </CardContent>
         </Card>
-        <footer className="mt-10 text-center text-sm text-gray-500">
+        <footer className="mt-12 text-center text-sm text-gray-500">
           © {new Date().getFullYear()} Moores Rowland Egypt · All Rights Reserved
         </footer>
       </div>
     </div>
   )
 }
+
