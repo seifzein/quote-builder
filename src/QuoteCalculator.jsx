@@ -1,3 +1,4 @@
+
 import { useState } from "react"
 
 function Card({ children }) {
@@ -61,10 +62,10 @@ export default function QuoteCalculator() {
   const fee = Math.round(minFee + (totalScore - 20) * 106.25)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#e3e8f0] to-[#f8fafc] py-16 pl-24 pr-6 font-sans">
-      <div className="max-w-5xl mx-auto ml-24">
+    <div className="min-h-screen bg-gradient-to-br from-[#e3e8f0] to-[#f8fafc] py-16 font-sans">
+      <div className="w-full px-6 sm:pl-24 sm:pr-12">
         <div className="flex items-center justify-start gap-4 mb-12">
-          <img src="/logo.png" alt="Moores Rowland" className="w-3 h-3 object-contain"/>
+          <img src="/togo.png" alt="Moores Rowland" className="w-6 h-6 object-contain" style={{ maxWidth: "4rem", maxHeight: "4rem" }} />
           <h1 className="text-3xl font-semibold text-[#1a237e] tracking-tight">Pricing Tool</h1>
         </div>
         <Card>
